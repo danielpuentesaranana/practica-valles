@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <title>Productos Típicos Valles Pasiegos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="./styles.css"/>
+  <meta name="color-scheme" content="light dark"/>
+</head>
+<body>
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">🛍️</div>
+        <span class="brand-name">Productos Típicos Valles Pasiegos</span>
+      </div>
+      <nav class="top-actions">
+        <button id="btn-logout" class="btn btn-ghost hide">Salir</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <p id="whoami" class="whoami">Cargando sesión…</p>
+    </div>
+  </section>
+
+  <!-- Auth + Chat -->
+  <section class="container grid-2 gap-lg stack-on-mobile">
+    <!-- Auth card -->
+    <section id="auth" class="card">
+      <div class="card-header">
+        <h2>Acceso</h2>
+        <p class="muted">Regístrate o inicia sesión para usar el chat y, si eres admin, gestionar productos.</p>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Autenticación">
+        <button class="tab active" role="tab" aria-selected="true" aria-controls="tab-register">Registro</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-login">Login</button>
+      </div>
+
+      <div class="tab-panels">
+        <!-- Registro -->
+        <div id="tab-register" class="tab-panel active" role="tabpanel">
+          <div class="form-row">
+            <label for="reg-username">Usuario</label>
+            <input id="reg-username" placeholder="Tu usuario" autocomplete="username"/>
+          </div>
+          <div class="form-row">
+            <label for="reg-password">Contraseña</label>
+            <input id="reg-password" type="password" placeholder="••••••••" autocomplete="new-password"/>
+          </div>
+          <div class="actions">
+            <button id="btn-register" class="btn btn-primary">Registrarme</button>
+          </div>
+        </div>
+
+        <!-- Login -->
+        <div id="tab-login" class="tab-panel" role="tabpanel" hidden>
+          <div class="form-row">
+            <label for="login-username">Usuario</label>
+            <input id="login-username" placeholder="Tu usuario" autocomplete="username"/>
+          </div>
+          <div class="form-row">
+            <label for="login-password">Contraseña</label>
+            <input id="login-password" type="password" placeholder="••••••••" autocomplete="current-password"/>
+          </div>
+          <div class="actions">
+            <button id="btn-login" class="btn btn-primary">Entrar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chat card (se oculta si no hay sesión) -->
+    <section id="chat" class="card hide">
+      <div class="card-header">
+        <h2>Chat en tiempo real</h2>
+        <p class="muted">Solo para usuarios autenticados</p>
+      </div>
+      <div id="messages" class="messages" aria-live="polite" aria-label="Mensajes del chat"></div>
+      <div class="chat-input">
+        <input id="msg" placeholder="Escribe un mensaje…" aria-label="Mensaje para enviar"/>
+        <button id="btn-send" class="btn btn-primary">Enviar</button>
+      </div>
+    </section>
+  </section>
+
+  <!-- Productos -->
+  <section class="container">
+    <div class="card">
+      <div class="card-header row-between">
+        <div>
+          <h2>Productos</h2>
+          <p class="muted">Explora el listado y consulta los detalles.</p>
+        </div>
+        <div class="legend">
+          <span class="badge">público</span>
+        </div>
+      </div>
+
+      <!-- Panel Admin -->
+      <div id="admin-panel" class="admin-panel hide">
+        <h3 class="mt-0">Crear/Editar producto</h3>
+        <div class="grid-3 gap-md stack-on-mobile">
+          <div class="form-row">
+            <label for="p-name">Nombre</label>
+            <input id="p-name" placeholder="Nombre del producto"/>
+          </div>
+          <div class="form-row">
+            <label for="p-price">Precio (€)</label>
+            <input id="p-price" type="number" step="0.01" placeholder="0.00"/>
+          </div>
+          <div class="form-row">
+            <label for="p-desc">Descripción</label>
+            <input id="p-desc" placeholder="Descripción corta"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <label for="p-imagen">URL de Imagen (opcional)</label>
+          <input id="p-imagen" type="url" placeholder="https://ejemplo.com/imagen.jpg"/>
+        </div>
+        <div class="actions">
+          <button id="btn-create" class="btn btn-success">Crear</button>
+        </div>
+        <hr class="divider"/>
+      </div>
+
+      <!-- Grid productos -->
+      <div id="list" class="product-grid" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+    </div>
+  </footer>
+
+  
+  <script>
+    const tabs = document.querySelectorAll(".tabs .tab");
+    const panels = document.querySelectorAll(".tab-panel");
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        panels.forEach(p => { p.classList.remove("active"); p.hidden = true; });
+        tab.classList.add("active");
+        panels[i].classList.add("active");
+        panels[i].hidden = false;
+      });
+    });
+
+    // util: toggle class "hide" según tu client.js cambie display
+    const logoutBtn = document.getElementById("btn-logout");
+    if (logoutBtn) {
+    
+    }
+  </script>
+
+  <!-- Socket.IO + tu lógica -->
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <script src="./client.js" type="module"></script>
+</body>
+</html>
