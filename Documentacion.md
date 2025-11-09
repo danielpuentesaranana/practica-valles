@@ -106,6 +106,16 @@ npm start
 ---
 ## Capturas de Pantalla
 
+### Página Principal (sin sesión)
+![Página principal sin sesión](./frontend/public/img/captura-inicio.png)
+
+### Acceso y Chat en Tiempo Real
+![Chat en tiempo real](./frontend/public/img/captura-chat.png)
+
+### Gestión de Productos (Admin)
+![Gestión de productos](./frontend/public/img/captura-productos.png)
+
+
 
 ## Decisiones Tomadas Durante el Desarrollo
 
